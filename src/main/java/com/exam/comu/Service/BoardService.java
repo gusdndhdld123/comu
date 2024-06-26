@@ -5,6 +5,8 @@ import com.exam.comu.Entity.BoardEntity;
 import com.exam.comu.Repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -26,16 +28,19 @@ public class BoardService {
     }
 
     //전체조회
-    public List<BoardDTO> list() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
 
-        return Arrays.asList(modelMapper.map(boardEntityList,
-                BoardDTO[].class));
+    public List<BoardDTO> list(Pageable pageable) {
+        Page<BoardEntity> boardEntityPage = boardRepository.findAll(pageable);
+
+        // Page 결과를 List<BoardEntity>로 변환
+        List<BoardEntity> boardEntityList = boardEntityPage.getContent();
+
+        return Arrays.asList(modelMapper.map(boardEntityList, BoardDTO[].class));
     }
 
     //개별조회
-    public BoardDTO read(Long boardIdx) {
-        Optional<BoardEntity> optionalBoard = boardRepository.findById(boardIdx);
+    public BoardDTO read(Long id) {
+        Optional<BoardEntity> optionalBoard = boardRepository.findById(id);
 
         return modelMapper.map(optionalBoard, BoardDTO.class);
 

@@ -2,6 +2,8 @@ package com.exam.comu.DTO;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -13,4 +15,6 @@ public class BoardDTO {
     private String boardTitle;
     private String boardContent;
     private String boardWriter;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
 }

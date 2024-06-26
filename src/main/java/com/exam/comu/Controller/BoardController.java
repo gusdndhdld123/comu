@@ -2,12 +2,15 @@ package com.exam.comu.Controller;
 import com.exam.comu.DTO.BoardDTO;
 import com.exam.comu.Service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.hibernate.query.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/boards")
@@ -22,13 +25,14 @@ public class BoardController {
 
     // 전체 조회
     @GetMapping
-    public ResponseEntity<List<BoardDTO>> getAllBoards() {
-        return new ResponseEntity<>(boardService.list(), HttpStatus.OK);
+    public ResponseEntity<List<BoardDTO>> getAllBoards(Pageable pageable) {
+        return new ResponseEntity<>(boardService.list(pageable), HttpStatus.OK);
     }
 
     // 개별 조회
     @GetMapping("/{id}")
     public ResponseEntity<BoardDTO> getBoardById(@PathVariable("id") Long id) {
+        log.info(id + "개별조회 옴");
         return new ResponseEntity<>(boardService.read(id), HttpStatus.OK);
     }
 

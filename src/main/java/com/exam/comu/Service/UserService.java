@@ -5,7 +5,7 @@ import com.exam.comu.Entity.UserEntity;
 import com.exam.comu.Repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -45,25 +45,24 @@ public class UserService {
         return userRepository.save(user).getUserIdx();
     }
 
-    public void modify(UserDTO userDTO) {
-
-
-        Optional<UserEntity> userEntity = userRepository
-                .findById(userDTO.getUserIdx());
+    public UserDTO modify(UserDTO userDTO) {
+        Optional<UserEntity> userEntity = userRepository.findByUserEmail(userDTO.getUserEmail());
 
         if (userEntity.isPresent()) {
+            UserEntity user = userEntity.get();
+            user.setUserName(userDTO.getUserName());
+            user.setUserAge(userDTO.getUserAge());
 
-            String password = passwordEncoder.encode(userDTO.getPassword());
-            UserEntity user = modelMapper.map(userDTO, UserEntity.class);
-
-
-            user.setPassword(password);
-
+            if (userDTO.getPassword() != null) {
+                String password = passwordEncoder.encode(userDTO.getPassword());
+                user.setPassword(password);
+            }
 
             userRepository.save(user);
+        } else {
+            log.info("유저 데이터 수정 실패");
         }
-
-
+        return userDTO;
     }
 
     public UserDTO read(Long userIdx) {

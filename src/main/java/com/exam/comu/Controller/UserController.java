@@ -44,11 +44,10 @@ public class UserController {
     }
 
     // 수정
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO, @PathVariable Long id) {
-        userDTO.setUserIdx(id);
-        userService.modify(userDTO);
-        UserDTO updatedUser = userService.read(id);
+    @PutMapping
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
+
+        UserDTO updatedUser = userService.modify(userDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
