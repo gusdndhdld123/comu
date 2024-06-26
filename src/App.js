@@ -53,6 +53,7 @@ function Content() {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/boards">게시판</Nav.Link>
                         <Nav.Link as={Link} to="/maps">맛집탐방</Nav.Link>
+                        <Nav.Link as={Link} to="/chat">채팅방</Nav.Link>
                     </Nav>
 
                     { user ? (
@@ -79,6 +80,7 @@ function Content() {
             <Container>
                 <Routes>
                     <Route path="/" element={<HomePage></HomePage>} />
+                    <Route path="/chat" element={<ChatComponent></ChatComponent>} />
                     <Route path="/boards" element={<BoardList />} />
                     <Route path="/boards/register" element={<BoardRegister />} />
                     <Route path="/boards/read/:id" element={<BoardRead />}></Route>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import {Container, Row} from "react-bootstrap";
 
 const ChatRoom = () => {
     const [stompClient, setStompClient] = useState(null);
@@ -53,31 +54,28 @@ const ChatRoom = () => {
     }
 
     return (
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-12" style={{height: '40vh', overflowY: 'auto'}}>
+        <Container>
+            <Row>
+                <div style={{width: '100%', height: '600px', backgroundColor: 'lightgrey'}}>
                     <ul>
                         {messages.map((msg, idx) => <li key={idx}><strong>{msg.sender}</strong>: {msg.content}</li>)}
                         <div ref={messagesEndRef}></div>
                     </ul>
                 </div>
-
-                <div className="col-10 mt-3">
+                <div className="flex-row">
                     <input
                         type="text"
                         value={messageInput}
                         onChange={handleInputChange}
-                        className="form-control"
+                        className="form-control col-10"
                     />
-                </div>
-
-                <div className="col-2 mt-3">
-                    <button onClick={sendMessage} className="btn btn-primary">
+                    <button onClick={sendMessage} className="btn btn-primary col-2">
                         Send
                     </button>
                 </div>
-            </div>
-        </div>
+            </Row>
+
+        </Container>
     );
 };
 
