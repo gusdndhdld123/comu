@@ -5,7 +5,7 @@ import axios from 'axios';
 import {UserContext} from "./UserProvider";
 import Pagination from 'react-js-pagination';
 
-const BoardList = () => {
+const HotBoardList = () => {
     const [boards, setBoards] = useState([]);
     const { user, setUser } = useContext(UserContext);
 
@@ -29,8 +29,8 @@ const BoardList = () => {
         fetchBoards();
     }, [activePage]);
     return (
-        <Container>
-            <h2>게시글 목록</h2>
+        <Container style={{padding : "5px"}} className="border">
+            <h2 style={{textAlign : 'left'}}>인기 게시판</h2>
             <Table striped bordered hover>
                 <thead>
                 <tr>
@@ -95,4 +95,4 @@ const BoardList = () => {
     );
 }
 
-export default BoardList;
+export default HotBoardList;

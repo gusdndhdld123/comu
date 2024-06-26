@@ -23,7 +23,7 @@ function UserRegister() {
         axios.post('/users', form)
             .then(response => {
                 console.log(response);
-                alert('User registered successfully');
+                alert('회원가입 되었습니다');
                 navigate('/login');  // 로그인 페이지로 이동한다.
             })
             .catch(error => {

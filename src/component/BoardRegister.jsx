@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
-import { Button, Form, Container } from 'react-bootstrap';
+import React, {useContext, useState} from 'react';
+import {Button, Form, Container, Col} from 'react-bootstrap';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {UserContext} from "./UserProvider";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import Write from "./Write";
 
 const Register = () => {
     const [boardTitle, setBoardTitle] = useState('');
-    const [boardWriter, setBoardWriter] = useState('');
     const [boardContent, setBoardContent] = useState('');
     const navigate = useNavigate();
+    const {user} = useContext(UserContext);
+    const boardWriter = user.userEmail;
 
     const handleSubmit = async e => {
         e.preventDefault();
         try {
-            const response = await axios.post('/boards', { boardTitle, boardWriter, boardContent });
+            const response = await axios.post('/boards', {boardTitle, boardWriter, boardContent});
             if (response.status === 201) {
                 alert('등록되었습니다.');
                 setBoardTitle('');
-                setBoardWriter('');
                 setBoardContent('');
-                navigate('/');  // 홈 페이지로 이동한다.
+                navigate('/'); // Go to home page
             }
         } catch (error) {
             console.error(error);
@@ -26,22 +30,31 @@ const Register = () => {
     };
 
     return (
-        <Container>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group>
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control type="text" value={boardTitle} onChange={e => setBoardTitle(e.target.value)} required />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Content</Form.Label>
-                    <Form.Control type="text" value={boardContent} onChange={e => setBoardContent(e.target.value)} required />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Writer</Form.Label>
-                    <Form.Control type="text" value={boardWriter} onChange={e => setBoardWriter(e.target.value)} required />
-                </Form.Group>
-                <Button variant="primary" type="submit">Register</Button>
-            </Form>
+        <Container className="justify-content-sm-center d-flex" style={{paddingTop : '3%'}}>
+            <Col className="justify-content-md-center" style={{width:'80%'}}>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="d-flex align-items-center">
+                        <Form.Label className="col-1">제목:</Form.Label>
+                        <Form.Control value={boardTitle} onChange={e => setBoardTitle(e.target.value)} required />
+                    </Form.Group>
+                    <br></br>
+                    <Form.Group className="d-flex align-items-start">
+                        <Write
+                            style={{height: '500px' , width:"100%"}}
+                            value={boardContent}
+                            onChange={setBoardContent}
+                        />
+                    </Form.Group>
+                    <Form.Group style={{display:"none"}}>
+                        <Form.Label>Writer</Form.Label>
+                        <Form.Control readOnly type="text" value={boardWriter} />
+                    </Form.Group>
+                    <br></br>
+                    <div className="d-flex justify-content-end" style={{paddingTop:"2%"}}>
+                        <Button variant="primary" type="submit" style={{width:"100%"}}>Register</Button>
+                    </div>
+                </Form>
+            </Col>
         </Container>
     )
 }

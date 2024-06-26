@@ -23,8 +23,9 @@ function Login() {
         axios.post('/users/login', form)
             .then(response => {
                 console.log(response);
-                alert('User logged in successfully');
-                setUser(response.data.username);
+                alert('로그인 되었습니다');
+                setUser(response.data);
+                localStorage.setItem('user', JSON.stringify(response.data));
                 navigate('/');
             })
             .catch(error => {
@@ -33,24 +34,38 @@ function Login() {
     };
 
     return (
-        <Container>
-            <Row className="justify-content-md-center">
+        <Container className="justify-content-sm-center d-flex" style={{paddingTop : '10%'}}>
+            <Row className="justify-content-md-center border" style={{width:'60%'}}>
                 <Col md="auto">
                     <h2>Login</h2>
-                    <Form onSubmit={onSubmit}>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" value={form.userEmail} placeholder="Enter email" onChange={e => {
-                                setForm({...form, userEmail: e.target.value})
-                            }} />
+                    <br></br>
+                    <Form onSubmit={onSubmit} style={{width: '80%'}}>
+                        <Form.Group controlId="formBasicEmail" className="d-flex align-items-center">
+                            <Col xs="auto" className="my-1">
+                                <Form.Label>ID: </Form.Label>
+
+                            </Col>
+
+                            <Col xs="auto" className="my-1" style={{paddingLeft : '15px'}}>
+                                <Form.Control type="email" value={form.userEmail}
+                                              placeholder="Enter email"
+                                              onChange={e => setForm({...form, userEmail: e.target.value})}/>
+                            </Col>
                         </Form.Group>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" value={form.password} placeholder="Password" onChange={e => {
-                                setForm({...form, password: e.target.value})
-                            }} />
+                        <br></br>
+                        <Form.Group controlId="formBasicPassword" className="d-flex align-items-center">
+                            <Col xs="auto" className="my-1">
+                                <Form.Label>PW: </Form.Label>
+                            </Col>
+                            <Col xs="auto" className="my-1" style={{paddingLeft : '15px'}}>
+                                <Form.Control type="password" value={form.password}
+                                              placeholder="Password"
+                                              onChange={e => setForm({...form, password: e.target.value})}/>
+                            </Col>
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <br></br>
+                        <br></br>
+                        <Button variant="primary" type="submit" style={{marginLeft : '35px'}}>
                             Submit
                         </Button>
                     </Form>
