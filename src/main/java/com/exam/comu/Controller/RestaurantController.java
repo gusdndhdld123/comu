@@ -8,9 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,4 +23,11 @@ public class RestaurantController {
     public ResponseEntity<List<RestaurantDTO>> getAllRestaurants(Pageable pageable) {
         return new ResponseEntity<>(restaurantService.list(pageable), HttpStatus.OK);
     }
+    // 개별 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<RestaurantDTO> getBoardById(@PathVariable("id") int id) {
+        log.info(id + "개별조회 컨트롤러 옴");
+        return new ResponseEntity<>(restaurantService.read(id), HttpStatus.OK);
+    }
+
 }

@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class RestaurantDTO {
     private int restaurantIdx;

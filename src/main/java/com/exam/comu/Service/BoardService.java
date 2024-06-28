@@ -4,6 +4,7 @@ import com.exam.comu.DTO.BoardDTO;
 import com.exam.comu.Entity.BoardEntity;
 import com.exam.comu.Repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class BoardService {
     private final BoardRepository boardRepository;
     private final ModelMapper modelMapper;
@@ -34,7 +36,7 @@ public class BoardService {
 
         // Page 결과를 List<BoardEntity>로 변환
         List<BoardEntity> boardEntityList = boardEntityPage.getContent();
-
+        log.info("보드의 리스트를 보내줍니다"+boardEntityList);
         return Arrays.asList(modelMapper.map(boardEntityList, BoardDTO[].class));
     }
 
