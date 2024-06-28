@@ -12,7 +12,7 @@ const BoardList = () => {
 
     const fetchBoards = async () => {
         try {
-            const response = await axios.get(`/boards?page=${activePage}&size=5&sort=desc`);
+            const response = await axios.get(`/boards?page=${activePage - 1}&size=5&sort=desc`);
             setBoards(response.data);
         } catch (e) {
             console.log(e);

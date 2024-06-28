@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:8080",
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "@stomp/stompjs": "^7.0.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -12,15 +13,18 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "html-react-parser": "^5.1.10",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.3",
     "react-dom": "^18.3.1",
     "react-js-pagination": "^3.0.3",
+    "react-markdown": "^9.0.1",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.7.5",
     "sockjs-client": "^1.6.1",
+    "utm-latlng": "^1.0.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -46,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

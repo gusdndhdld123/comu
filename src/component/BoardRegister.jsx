@@ -22,7 +22,7 @@ const Register = () => {
                 alert('등록되었습니다.');
                 setBoardTitle('');
                 setBoardContent('');
-                navigate('/'); // Go to home page
+                navigate('/boards');
             }
         } catch (error) {
             console.error(error);

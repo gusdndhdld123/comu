@@ -17,6 +17,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import UserUpdate from "./component/UserUpdate";
 import TitleBanner from "./component/TitleBanner";
 import HomePage from "./component/HomePage";
+import RestaurantList from "./component/RestaurantList";
+import RestaurantRead from "./component/RestaurantRead";
 function App() {
 
     return (
@@ -52,7 +54,7 @@ function Content() {
                     <Navbar.Brand as={Link} to="/">HonBob</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/boards">게시판</Nav.Link>
-                        <Nav.Link as={Link} to="/maps">맛집탐방</Nav.Link>
+                        <Nav.Link as={Link} to="/restaurant">맛집탐방</Nav.Link>
                         <Nav.Link as={Link} to="/chat">채팅방</Nav.Link>
                     </Nav>
 
@@ -80,6 +82,8 @@ function Content() {
             <Container>
                 <Routes>
                     <Route path="/" element={<HomePage></HomePage>} />
+                    <Route path="/restaurant" element={<RestaurantList></RestaurantList>} />
+                    <Route path="/restaurant/read/:id" element={<RestaurantRead />}></Route>
                     <Route path="/chat" element={<ChatComponent></ChatComponent>} />
                     <Route path="/boards" element={<BoardList />} />
                     <Route path="/boards/register" element={<BoardRegister />} />
